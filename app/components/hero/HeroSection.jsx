@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 
 import { usePapers } from "../papers/usePapers";
 import Link from "next/link";
+import Image from "next/image";
 
 const HeroBanner = () => {
   const [cardId, setCardId] = useState(null);
@@ -76,7 +77,7 @@ const HeroBanner = () => {
           <select
             value={filterField}
             onChange={handleFilter}
-            className="  disabled:bg-opacity-70 px-4 outline-none border-none  bg-[#4d79aa] h-full font-semibold capitalize"
+            className="disabled:bg-opacity-70 px-4 outline-none border-none  bg-[#4d79aa] h-full font-semibold capitalize"
             name="filterSelect"
           >
             <option defaultChecked value="all">

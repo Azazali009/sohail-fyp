@@ -1,4 +1,5 @@
 import AboutComponent from "./components/AboutComponent";
+import Providers from "./components/Providers";
 import HeroAuthorsCard from "./components/hero/HeroAuthorsCard";
 import HeroSection from "./components/hero/HeroSection";
 import RelatedPage from "./components/related/RelatedPage";
@@ -9,6 +10,7 @@ export default function Home() {
     <section className=" max-w-6xl mx-auto">
       <HeroSection />
       {/* <HeroAuthorsCard /> */}
+      <Providers />
       <TestimonialMain />
       <AboutComponent />
       <RelatedPage />
