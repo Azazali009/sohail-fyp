@@ -1,39 +1,70 @@
+"use client";
 import Link from "next/link";
 import React from "react";
-// import { useForm } from "react-hook-form";
-// import { Link, useNavigate } from "react-router-dom";
-// import { useCreateUser } from "./useCreateUser";
+import { useForm } from "react-hook-form";
+
+import FormRow from "../ui/Formrow";
+import { useLogin } from "./useLogin";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { login, isPending } = useLogin();
+
+  const navigate = useRouter();
+
+  function onSubmit(data) {
+    login(
+      { ...data },
+      {
+        onSuccess: () => {
+          navigate.push("/");
+          alert("Login successfully");
+        },
+      }
+    );
+  }
   return (
     <div className=" flex pb-16 bg-gray-200 justify-center">
-      <form className="mt-4 mx-3 grid w-full shadow-2xl bg-white grid-cols-1 gap-y-10 rounded-xl px-8 py-4 text-gray-500 shadow-shadowTwo dark:text-white dark:shadow-shadowOne sm:mx-0 sm:w-3/5">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mt-4 mx-3 grid w-full shadow-2xl bg-white grid-cols-1 gap-y-10 rounded-xl px-8 py-4 text-gray-500 shadow-shadowTwo dark:text-white dark:shadow-shadowOne sm:mx-0 sm:w-3/5"
+      >
         <h2 className=" mb-3 text-center text-lg font-semibold capitalize text-sky-500 dark:text-sky-300 sm:text-3xl">
           Login to your Account
         </h2>
 
-        <div className="flex flex-col gap-2">
-          <label>Your Email:</label>
+        <FormRow lable={"Your Email:"} error={errors?.email?.message}>
           <input
             type="email"
             placeholder="Enter email"
             autoComplete="email"
-            className={`h-12 w-full rounded-lg border-gray-700 bg-gray-300 p-4 text-gray-500 shadow-shadowTwo outline-none outline-offset-2 focus-visible:border-b-transparent  dark:border-b-[1px] dark:bg-[#191b1e] dark:text-lightText dark:shadow-none sm:w-3/4`}
+            className={`h-12 w-full rounded-lg border-gray-700 bg-gray-100 p-4 text-gray-500 shadow-shadowTwo outline-none outline-offset-2 focus-visible:border-b-transparent  dark:border-b-[1px] dark:bg-[#191b1e] dark:text-lightText dark:shadow-none sm:w-3/4`}
+            {...register("email", {
+              required: "Field are required",
+            })}
           />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label>Your Password:</label>
+        </FormRow>
+        <FormRow lable={"Your password:"} error={errors?.password?.message}>
           <input
             type="password"
-            placeholder="Enter password"
-            className={`h-12 w-full rounded-lg border-gray-700 bg-gray-300 p-4 text-gray-500 shadow-shadowTwo outline-none outline-offset-2 focus-visible:border-b-transparent dark:border-b-[1px] dark:bg-[#191b1e] dark:text-lightText dark:shadow-none sm:w-3/4`}
+            placeholder="******"
+            className={`h-12 w-full rounded-lg border-gray-700 bg-gray-100 p-4 text-gray-500 shadow-shadowTwo outline-none outline-offset-2 focus-visible:border-b-transparent  dark:border-b-[1px] dark:bg-[#191b1e] dark:text-lightText dark:shadow-none sm:w-3/4`}
+            {...register("password", {
+              required: "Field are required",
+            })}
           />
-        </div>
+        </FormRow>
 
         <div>
           <button
             type="submit"
-            className=" px-4 py-2 hover:bg-sky-600 duration-200 bg-sky-500 text-sky-100  rounded-md "
+            disabled={isPending}
+            className=" px-4 disabled:opacity-60 disabled:cursor-not-allowed py-2 hover:bg-sky-600 duration-200 bg-sky-500 text-sky-100  rounded-md "
           >
             Login
           </button>

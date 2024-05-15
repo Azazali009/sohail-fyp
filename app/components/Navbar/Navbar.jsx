@@ -12,9 +12,9 @@ const Navbar = () => {
           <Link href={"/"}>contact</Link>
         </li>
         <li className=" capitalize">
-          <Link href={"/"}>home</Link>
+          <Link href={"/about"}>about us</Link>
         </li>
-        <li>
+        {/* <li>
           <details>
             <summary>browse</summary>
             <ul className="p-2 bg-gray-700 text-white rounded-t-none">
@@ -29,7 +29,7 @@ const Navbar = () => {
               </li>
             </ul>
           </details>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

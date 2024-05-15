@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { usePaper } from "../usePaper";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const SinglePaper = () => {
+  useState;
   const router = useRouter();
   const { Paper, isLoadingSinglePaper, isError } = usePaper();
 
@@ -21,10 +21,10 @@ const SinglePaper = () => {
     );
   if (isError) return <p>Error to load data!</p>;
   return (
-    <div className="  relative space-y-8 max-w-6xl mx-auto px-4 py-8 text-stone-600">
+    <div className="  relative space-y-8 max-w-5xl mx-auto px-4 py-8 text-stone-600">
       <button
         onClick={() => router.back()}
-        className=" absolute top-4 -left-4 shadow-xl hover:shadow-none duration-200 bg-gray-100 flex items-center justify-center text-stone-600 w-12 h-12 rounded-full"
+        className=" absolute top-4 -left-10 shadow-xl hover:shadow-none duration-200 bg-gray-100 flex items-center justify-center text-stone-600 w-12 h-12 rounded-full"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const SinglePaper = () => {
             <span>download paper</span>
           </button> */}
           <button
-            onClick={handleViewPdf}
+            onClick={() => handleViewPdf(Paper.pdf)}
             className=" bg-sky-500 items-center hover:bg-white hover:shadow-xl hover:text-stone-600 duration-300 flex gap-3 rounded-md px-6 py-2 border-none text-white capitalize font-medium"
           >
             <p>
@@ -129,16 +129,6 @@ const SinglePaper = () => {
         <h3>Publishers:</h3>
         <p>{Paper.publisher}</p>
       </div>
-      {/* references box */}
-      <div className="flex flex-col gap-2">
-        <h3 className="font-semibold capitalize">references</h3>
-        <p>{Paper.references}</p>
-      </div>
-      {/* conclusion box */}
-      <div className="flex flex-col gap-2">
-        <h3 className="font-semibold capitalize">conclusion</h3>
-        <p>{Paper.conclusion}</p>
-      </div>
 
       {/* accordians */}
 
@@ -161,21 +151,25 @@ const SinglePaper = () => {
           </div>
         </div>
 
-        {/* author accordians */}
+        {/* conculsion accordians */}
         <div className="collapse capitalize collapse-arrow rounded-none  bg-white border-b border-gray-300">
           <input type="checkbox" name="my-accordion-2" />
-          <div className="collapse-title text-xl ">authors</div>
+          <div className="collapse-title text-xl ">conclusion</div>
           <div className="collapse-content">
-            <p>{Paper.author}</p>
+            <p>{Paper.conclusion}</p>
           </div>
         </div>
 
-        {/* references */}
+        {/* references accordians */}
         <div className="collapse capitalize collapse-arrow rounded-none  bg-white border-b border-gray-300">
           <input type="checkbox" name="my-accordion-2" />
           <div className="collapse-title text-xl ">references</div>
           <div className="collapse-content">
-            <p>{Paper.references}</p>
+            <div className=" flex flex-col gap-4">
+              {Paper.references?.split("[").map((w) => (
+                <p key={w + 1}>{w}</p>
+              ))}
+            </div>
           </div>
         </div>
         {/* department accordians */}
